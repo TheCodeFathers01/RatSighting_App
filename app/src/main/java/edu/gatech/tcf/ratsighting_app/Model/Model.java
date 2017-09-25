@@ -9,8 +9,10 @@ import java.util.HashMap;
 public class Model {
     public static HashMap<String, String> loginCreds = new HashMap<String, String>();
 
-    public static void main(String[] args) {
+    public static Model myModel = new Model();
 
+    private Model() {
+        loginCreds.put("user", "pass");
     }
 
 
