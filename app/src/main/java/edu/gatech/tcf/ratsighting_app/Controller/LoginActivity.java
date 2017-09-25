@@ -41,7 +41,15 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToPostLogin();
+                EditText name = (EditText) findViewById(R.id.userText);
+
+                EditText pass = (EditText) findViewById(R.id.passText);
+                if(validateUserAndPass(name, pass)) {
+                    goToPostLogin();
+                } else{
+                    Snackbar.make(v, "Login Credentials are not recognized. Please check username and password", Snackbar.LENGTH_LONG)
+                       .setAction("Action", null).show();
+                }
             }
         });
 
@@ -63,6 +71,13 @@ public class LoginActivity extends AppCompatActivity {
     private void goToHomeScreen() {
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);
+    }
+    private boolean validateUserAndPass(EditText name, EditText pass){
+        String nameUser = name.getText().toString();
+        String namePass = pass.getText().toString();
+        if(nameUser.equals("user") && namePass.equals("pass")){
+            return true;
+        }        return false;
     }
 
 }
