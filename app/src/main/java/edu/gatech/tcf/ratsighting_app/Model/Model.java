@@ -7,7 +7,8 @@ import java.util.HashMap;
  */
 
 public class Model {
-    public HashMap<String, String> loginCreds = new HashMap<String, String>();
+    public static HashMap<String, String> loginCreds = new HashMap<String, String>();
+
     public static void main(String[] args) {
 
     }
