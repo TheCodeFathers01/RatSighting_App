@@ -1,5 +1,6 @@
 package edu.gatech.tcf.ratsighting_app.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,15 +38,31 @@ public class LoginActivity extends AppCompatActivity {
         EditText pass = (EditText) findViewById(R.id.passText);
 
         Button loginButton = (Button) findViewById(R.id.loginButton);
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Thank you for logging in", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-//                Model.loginCreds.add("user", "pass");
+            public void onClick(View v) {
+                goToPostLogin();
             }
         });
 
+        Button cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToHomeScreen();
+            }
+        });
+
+    }
+
+    private void goToPostLogin() {
+        Intent goHome = new Intent(this, PostLogin.class);
+        startActivity(goHome);
+    }
+
+    private void goToHomeScreen() {
+        Intent goHome = new Intent(this, WelcomeActivity.class);
+        startActivity(goHome);
     }
 
 }
