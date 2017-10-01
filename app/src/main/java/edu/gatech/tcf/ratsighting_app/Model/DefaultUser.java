@@ -1,5 +1,7 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 
 /**

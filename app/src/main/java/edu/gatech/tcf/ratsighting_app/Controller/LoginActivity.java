@@ -12,10 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import edu.gatech.tcf.ratsighting_app.Model.DefaultUser;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void goToPostLogin() {
