@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToHomeScreen() {
+        //
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);
     }
