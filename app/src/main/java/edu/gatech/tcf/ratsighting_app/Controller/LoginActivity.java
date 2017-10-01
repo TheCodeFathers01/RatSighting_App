@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import edu.gatech.tcf.ratsighting_app.Model.Model;
+import edu.gatech.tcf.ratsighting_app.Model.DefaultUser;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,15 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         EditText name = (EditText) findViewById(R.id.userText);
 
