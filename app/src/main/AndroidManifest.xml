@@ -31,6 +31,10 @@
         <activity
             android:name=".Controller.PostLogin"
             android:label="@string/title_activity_post_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Controller.RegistrationActivity"
+            android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

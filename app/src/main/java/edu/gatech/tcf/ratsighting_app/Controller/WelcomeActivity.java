@@ -25,6 +25,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 launchLoginActivity();
             }
         });
+        Button registrationButton = (Button) findViewById(R.id.registrationButton);
+        registrationButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public  void onClick(View v) {
+                launchRegistrationActivity();
+            }
+        });
+
         setSupportActionBar(toolbar);
     }
 
@@ -52,6 +60,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void launchLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchRegistrationActivity() {
+        Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 }
