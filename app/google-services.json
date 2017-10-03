@@ -1,10 +1,55 @@
 {
   "project_info": {
-    "project_number": "908475267246",
-    "firebase_url": "https://ratsightingapp-af7cc.firebaseio.com",
-    "project_id": "ratsightingapp-af7cc",
-    "storage_bucket": "ratsightingapp-af7cc.appspot.com"
+    "project_number": "242556282446",
+    "firebase_url": "https://ratsightingapp.firebaseio.com",
+    "project_id": "ratsightingapp",
+    "storage_bucket": "ratsightingapp.appspot.com"
   },
-  "client": [],
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242556282446:android:aa1605b349453258",
+        "android_client_info": {
+          "package_name": "edu.gatech.tcf.ratsighting_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242556282446-4v8c77dqmlin4d74d04f2rvjto8qijjm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.tcf.ratsighting_app",
+            "certificate_hash": "2198208789b216fcbdd04fbf9d630d1b49346b66"
+          }
+        },
+        {
+          "client_id": "242556282446-nnb597u826h64rg4sg8scmrlsuqohcv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAjbRrhbwt3d0lTTKaymUXie7HY41ntgA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242556282446-nnb597u826h64rg4sg8scmrlsuqohcv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
   "configuration_version": "1"
 }

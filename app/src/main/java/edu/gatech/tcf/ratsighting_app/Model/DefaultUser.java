@@ -8,19 +8,12 @@ import java.util.HashMap;
  * Created by raghavbhat on 9/24/17.
  */
 
-public class DefaultUser {
-
-    protected String username;
-    protected String password;
-    protected String email;
-
-    public DefaultUser(String username, String password, String email) {
+public class DefaultUser extends User{
+    public DefaultUser(String username, String password, String email, UserType uT) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.uT = uT;
     }
 
-    public boolean validate(String uname, String pass) {
-        return uname.equals(username) && pass.equals(password);
-    }
 }

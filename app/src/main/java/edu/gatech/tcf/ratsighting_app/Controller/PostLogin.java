@@ -8,10 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserInfo;
 
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class PostLogin extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,10 @@ public class PostLogin extends AppCompatActivity {
         setContentView(R.layout.activity_post_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TextView addInfo = (TextView) findViewById(R.id.userInfo);
+        firebaseAuth = FirebaseAuth.getInstance();
+        String temp = "You are signed in as" + firebaseAuth.getCurrentUser().getEmail();
+        addInfo.setText(temp);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +48,14 @@ public class PostLogin extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     *
+     * launches the Welcome Screen
+     *
+     */
     private void launchWelcome() {
+        firebaseAuth.signOut();
+        Toast.makeText(this, "Signed Out", Toast.LENGTH_SHORT).show();
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);
     }

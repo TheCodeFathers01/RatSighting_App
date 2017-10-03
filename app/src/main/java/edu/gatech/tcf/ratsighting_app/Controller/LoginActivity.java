@@ -2,27 +2,35 @@ package edu.gatech.tcf.ratsighting_app.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import edu.gatech.tcf.ratsighting_app.Model.DefaultUser;
 import edu.gatech.tcf.ratsighting_app.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
+    private EditText email;
+    private EditText pass;
+    private Button loginButton;
+    private Button cancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,35 +38,20 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        EditText name = (EditText) findViewById(R.id.userText);
+        email = (EditText) findViewById(R.id.userText);
 
-        EditText pass = (EditText) findViewById(R.id.passText);
+        pass = (EditText) findViewById(R.id.passText);
 
-        Button loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText name = (EditText) findViewById(R.id.userText);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
 
-                EditText pass = (EditText) findViewById(R.id.passText);
-                if(validateUserAndPass(name, pass)) {
-                    goToPostLogin();
-                } else{
-                    Snackbar.make(v, "Login Credentials are not recognized. Please check username and password", Snackbar.LENGTH_LONG)
-                       .setAction("Action", null).show();
-                }
-            }
-        });
-
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToHomeScreen();
-            }
-        });
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            goToPostLogin();
+        }
     }
 
     private void goToPostLogin() {
@@ -70,12 +63,38 @@ public class LoginActivity extends AppCompatActivity {
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);
     }
-    private boolean validateUserAndPass(EditText name, EditText pass){
-        String nameUser = name.getText().toString();
-        String namePass = pass.getText().toString();
-        if(nameUser.equals("user") && namePass.equals("pass")){
-            return true;
-        }        return false;
-    }
 
+    @Override
+    public void onClick(View v) {
+        if(v == loginButton){
+            loginUser();
+        }
+    }
+    /**
+     *
+     * logs in the user
+     *
+     */
+    private void loginUser() {
+        String emailAddress = email.getText().toString().trim();
+        String password = pass.getText().toString().trim();
+        if(TextUtils.isEmpty(emailAddress)){
+            Toast.makeText(this, "Login Failed, Please enter a email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Login Failed, Please enter a password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mAuth.signInWithEmailAndPassword(emailAddress, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    goToPostLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login Failed, Email and Password were not recognized", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }
