@@ -5,80 +5,54 @@ import java.util.Date;
 public class RatSighting {
 
     private int key;
-    private Date mDate = new Date();
-    private int lattitude;
-    private int longitude;
+    private String mDate;
+    private String coordinates;
     private LocationType mLocationType;
-    private int zipCode;
+    private String zipCode;
     private String address;
     private String city;
     private Borough mBorough;
+
+    public RatSighting(int key, String date, String coordinates, LocationType locationType, String zipCode, String address, String city, Borough borough) {
+        this.key = key;
+        mDate = date;
+        this.coordinates = coordinates;
+        mLocationType = locationType;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.city = city;
+        mBorough = borough;
+    }
 
     public int getKey() {
         return key;
     }
 
-    public void setKey(int key) {
-        this.key = key;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 
-    public int getLattitude() {
-        return lattitude;
-    }
-
-    public void setLattitude(int lattitude) {
-        this.lattitude = lattitude;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
+    public String getCoordinates() {
+        return coordinates;
     }
 
     public LocationType getLocationType() {
         return mLocationType;
     }
 
-    public void setLocationType(LocationType locationType) {
-        mLocationType = locationType;
-    }
-
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public Borough getBorough() {
         return mBorough;
-    }
-
-    public void setBorough(Borough borough) {
-        mBorough = borough;
     }
 }

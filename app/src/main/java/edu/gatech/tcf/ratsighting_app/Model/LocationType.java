@@ -1,5 +1,8 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum LocationType {
 
     FamilyDwelling("1-2 Family Dwelling"), FamilyApt("3+ Family Apartment Building"), FamilyMixedUse("3+ Family Mixed Use Building"), Commercial("Commercial Building"),
@@ -13,5 +16,16 @@ public enum LocationType {
 
     public String getDescription(){
         return description;
+    }
+
+    private static Map<String, LocationType> map = new HashMap<String, LocationType>();
+    static {
+        for (LocationType mLocationType : LocationType.values()) {
+            map.put(mLocationType.description, mLocationType);
+        }
+    }
+
+    public static LocationType getLocationType(String string) {
+        return map.get(string);
     }
 }
