@@ -68,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if(v == loginButton){
             loginUser();
+        } else if (v == cancelButton) {
+            goToHomeScreen();
         }
     }
     /**

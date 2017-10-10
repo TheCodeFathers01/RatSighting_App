@@ -28,7 +28,7 @@ public class PostLogin extends AppCompatActivity {
         setSupportActionBar(toolbar);
         TextView addInfo = (TextView) findViewById(R.id.userInfo);
         firebaseAuth = FirebaseAuth.getInstance();
-        String temp = "You are signed in as" + firebaseAuth.getCurrentUser().getEmail();
+        String temp = "You are signed in as " + firebaseAuth.getCurrentUser().getEmail();
         addInfo.setText(temp);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

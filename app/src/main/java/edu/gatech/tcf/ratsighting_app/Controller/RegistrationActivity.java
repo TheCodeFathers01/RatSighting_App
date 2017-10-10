@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private String password;
     private String username;
     private UserType tempUT;
-    private final List<User> tempU = new ArrayList<User>();;
+    private final List<User> tempU = new ArrayList<User>();
     private DatabaseReference usersRef;
 
     @Override
@@ -128,7 +128,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(this, "Registration was Unsuccessful, enter a username", Toast.LENGTH_SHORT).show();
             return;
         }
-        tempUT = (UserType) userType.getSelectedItem();
+        tempUT = (UserType) userType.getSelectedItem(); //Get type from spinner
         usersRef = ref.child("users");
         Map<String, User> users = new HashMap<String, User>();
         if (tempUT == UserType.USER) {
