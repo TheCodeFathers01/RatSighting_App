@@ -1,8 +1,9 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RatSighting {
+public class RatSighting implements Serializable {
 
     private int key;
     private String mDate;

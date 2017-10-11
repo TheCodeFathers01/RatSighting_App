@@ -36,7 +36,8 @@
             android:name=".Controller.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Controller.SightingList"></activity>
+        <activity android:name=".Controller.SightingList" />
+        <activity android:name=".Controller.SightingInfo"></activity>
     </application>
 
 </manifest>
