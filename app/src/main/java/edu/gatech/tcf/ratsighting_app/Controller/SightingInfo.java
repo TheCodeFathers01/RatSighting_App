@@ -25,5 +25,12 @@ public class SightingInfo extends AppCompatActivity {
         TextView text8 = (TextView) findViewById(R.id.textView8);
         text1.setText("Address: " + sighting.getAddress());
         text2.setText("City: " + sighting.getCity());
+        text3.setText("Key: " + sighting.getKey());
+        text4.setText("Location Type: " + sighting.getLocationType());
+        text5.setText("ZipCode: " + sighting.getZipCode());
+        text6.setText("Borough: " + sighting.getBorough());
+        text7.setText("Coordinates: " + sighting.getCoordinates());
+        text8.setText("Date: " + sighting.getDate());
+
     }
 }

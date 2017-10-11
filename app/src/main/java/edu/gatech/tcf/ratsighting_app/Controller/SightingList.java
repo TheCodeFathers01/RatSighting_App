@@ -36,6 +36,7 @@ public class SightingList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Poop", "Got Hereo");
         setContentView(R.layout.activity_sighting_list);
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,6 +44,17 @@ public class SightingList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listPlace = position;
                 launchLogin();
+            }
+        });
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initList(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -54,6 +66,7 @@ public class SightingList extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
         Log.d("Poop", "Got here");
+        int counter = 0;
         for (DataSnapshot sighting : ds) {
             newSighting = new RatSighting();
             newSighting.setAddress(sighting.getValue(RatSighting.class).getAddress());
@@ -67,6 +80,10 @@ public class SightingList extends AppCompatActivity {
             list.add(newSighting);
             Log.d("Poop", newSighting + "");
             adapter.notifyDataSetChanged();
+            if (counter > 50) {
+                break;
+            }
+            counter++;
         }
     }
 
