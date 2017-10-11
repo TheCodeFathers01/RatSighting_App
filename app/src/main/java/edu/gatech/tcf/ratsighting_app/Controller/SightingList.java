@@ -45,9 +45,9 @@ public class SightingList extends AppCompatActivity {
 
     private void initList(DataSnapshot dataSnapshot) {
         Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
-        List<RatSighting> list = new ArrayList<>();
+        ArrayList<RatSighting> list = new ArrayList<RatSighting>();
         RatSighting newSighting;
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        ArrayAdapter<RatSighting> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
         for (DataSnapshot sighting : ds) {
             newSighting = new RatSighting();
@@ -61,7 +61,7 @@ public class SightingList extends AppCompatActivity {
             newSighting.setmLocationType(sighting.getValue(RatSighting.class).getLocationType());
             list.add(newSighting);
             Log.d("Poop", newSighting + "");
-            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
     }
 }
