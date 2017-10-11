@@ -47,6 +47,14 @@ public class PostLogin extends AppCompatActivity {
                 launchWelcome();
             }
         });
+
+        Button listButton = (Button) findViewById(R.id.sightingListButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchSightingList();
+            }
+        });
     }
     /**
      *
@@ -58,6 +66,11 @@ public class PostLogin extends AppCompatActivity {
         Toast.makeText(this, "Signed Out", Toast.LENGTH_SHORT).show();
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);
+    }
+
+    private void launchSightingList() {
+        Intent goList = new Intent(this, SightingList.class);
+        startActivity(goList);
     }
 
 }
