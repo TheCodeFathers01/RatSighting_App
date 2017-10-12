@@ -37,7 +37,11 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.SightingList" />
-        <activity android:name=".Controller.SightingInfo"></activity>
+        <activity android:name=".Controller.SightingInfo" />
+        <activity
+            android:name=".Controller.AddNewRatSightingReport"
+            android:label="@string/title_activity_add_new_rat_sighting_report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
