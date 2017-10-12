@@ -55,6 +55,14 @@ public class PostLogin extends AppCompatActivity {
                 launchSightingList();
             }
         });
+
+        Button addButton = (Button) findViewById(R.id.NewRatSighting);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchAddSighting();
+            }
+        });
     }
     /**
      *
@@ -71,6 +79,11 @@ public class PostLogin extends AppCompatActivity {
     private void launchSightingList() {
         Intent goList = new Intent(this, SightingList.class);
         startActivity(goList);
+    }
+
+    private void launchAddSighting() {
+        Intent addActivity = new Intent(this, AddNewRatSightingReport.class);
+        startActivity(addActivity);
     }
 
 }
