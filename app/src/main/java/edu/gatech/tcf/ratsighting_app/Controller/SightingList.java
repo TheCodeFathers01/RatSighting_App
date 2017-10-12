@@ -34,7 +34,7 @@ public class SightingList extends AppCompatActivity {
 
     /**
      * Gives the database reference a value event listener in order to update the list whenever the database is opened or changed
-     * @param savedInstanceState 
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
