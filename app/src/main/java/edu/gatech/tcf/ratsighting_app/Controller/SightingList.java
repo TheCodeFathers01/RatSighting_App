@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
+import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class SightingList extends AppCompatActivity {
@@ -29,10 +30,12 @@ public class SightingList extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference("server/saving-data/sightingData");
     ListView listView;
-    ArrayList<RatSighting> list;
     int listPlace = 0;
 
-
+    /**
+     * Gives the database reference a value event listener in order to update the list whenever the database is opened or changed
+     * @param savedInstanceState 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class SightingList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listPlace = position;
-                launchLogin();
+                launchInfo();
             }
         });
         ref.addValueEventListener(new ValueEventListener() {
@@ -59,11 +62,15 @@ public class SightingList extends AppCompatActivity {
         });
     }
 
+    /**
+     * Fills the model's list with 50 sightins from the database
+     * @param dataSnapshot the snapshat of the database at that child
+     */
     private void initList(DataSnapshot dataSnapshot) {
         Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
-        list = new ArrayList<RatSighting>();
+        SightingListContainer.list = new ArrayList<RatSighting>();
         RatSighting newSighting;
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, SightingListContainer.list);
         listView.setAdapter(adapter);
         Log.d("Poop", "Got here");
         int counter = 0;
@@ -77,7 +84,7 @@ public class SightingList extends AppCompatActivity {
             newSighting.setmDate(sighting.getValue(RatSighting.class).getDate());
             newSighting.setZipCode(sighting.getValue(RatSighting.class).getZipCode());
             newSighting.setmLocationType(sighting.getValue(RatSighting.class).getLocationType());
-            list.add(newSighting);
+            SightingListContainer.list.add(newSighting);
             Log.d("Poop", newSighting + "");
             adapter.notifyDataSetChanged();
             if (counter > 50) {
@@ -87,9 +94,12 @@ public class SightingList extends AppCompatActivity {
         }
     }
 
-    private void launchLogin() {
+    /**
+     * Launches the sighting info page
+     */
+    private void launchInfo() {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("Sighting", (Serializable) list.get(listPlace));
+        bundle.putSerializable("Sighting", (Serializable) SightingListContainer.list.get(listPlace));
         Intent goInfo = new Intent(this, SightingInfo.class);
         goInfo.putExtras(bundle);
         startActivity(goInfo);

@@ -9,6 +9,11 @@ import edu.gatech.tcf.ratsighting_app.R;
 
 public class SightingInfo extends AppCompatActivity {
 
+    /**
+     * This activity represents the information screen of each sighting
+     *
+     * @param savedInstanceState the container of the sighting object
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
