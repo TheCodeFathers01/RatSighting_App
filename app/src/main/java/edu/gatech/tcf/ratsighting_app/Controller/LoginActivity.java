@@ -54,11 +54,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * goes to the PostLogin
+     */
     private void goToPostLogin() {
         Intent goHome = new Intent(this, PostLogin.class);
         startActivity(goHome);
     }
 
+    /**
+     * goes to the Home screen
+     */
     private void goToHomeScreen() {
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);

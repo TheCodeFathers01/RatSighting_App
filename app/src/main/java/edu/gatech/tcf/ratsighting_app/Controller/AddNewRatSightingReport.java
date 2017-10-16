@@ -1,5 +1,6 @@
 package edu.gatech.tcf.ratsighting_app.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import edu.gatech.tcf.ratsighting_app.Model.Borough;
 import edu.gatech.tcf.ratsighting_app.Model.LocationType;
@@ -27,6 +30,13 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
     private EditText coordinatesField;
     private EditText dateField;
     private Button submitButton;
+    private Button cancelButton;
+
+    private String addressText;
+    private String cityText;
+    private String zipCodeText;
+    private String coordinatesText;
+    private String dateText;
 
     private RatSighting _sighting;
     @Override
@@ -54,6 +64,7 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
         coordinatesField = (EditText) findViewById(R.id.newReport_Coordinates);
         dateField = (EditText) findViewById(R.id.newReport_Date);
         submitButton = (Button) findViewById(R.id.newReport_SubmitButton);
+        cancelButton = (Button) findViewById(R.id.newReport_CancelButton);
 
         /*
           Set up the adapter to display the allowable location types in the spinner
@@ -76,12 +87,20 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
         zipCodeField.setText(_sighting.getZipCode());
         coordinatesField.setText(_sighting.getCoordinates());
         dateField.setText(_sighting.getDate());
+
+        submitButton = (Button) findViewById(R.id.newReport_SubmitButton);
+        submitButton.setOnClickListener(this);
+
+        cancelButton = (Button) findViewById(R.id.newReport_CancelButton);
+        cancelButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == submitButton){
-            onAddPressed(v);
+            onSubmitPressed(v);
+        } else if (v == cancelButton) {
+            onCancelPressed(v);
         }
     }
 
@@ -89,12 +108,40 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
      * Button handler for the submit button
      * @param view the button
      */
-    public void onAddPressed(View view) {
+    public void onSubmitPressed(View view) {
+        addressText = addressField.getText().toString().trim();
+        cityText = cityField.getText().toString().trim();
+        zipCodeText = zipCodeField.getText().toString().trim();
+        coordinatesText = coordinatesField.getText().toString().trim();
+        dateText = dateField.getText().toString().trim();
+        if(TextUtils.isEmpty(addressText) || TextUtils.isEmpty(cityText)
+                || TextUtils.isEmpty(zipCodeText) || TextUtils.isEmpty(coordinatesText)
+                || TextUtils.isEmpty(dateText)) {
+            Toast.makeText(this, "One or more fields are missing.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.d("Edit", "Add Rat Sighting Report");
-        submitButton.setOnClickListener(this);
         SightingListContainer.list.add(_sighting);
 
         finish();
     }
 
+    /**
+     * Button handler for the cancel button
+     * @param view the button
+     */
+    public void onCancelPressed(View view) {
+        Log.d("Edit", "Cancel Rat Sighting Report");
+        goToPostLogin();
+
+        finish();
+    }
+
+    /**
+     * goes to the PostLogin
+     */
+    private void goToPostLogin() {
+        Intent goHome = new Intent(this, PostLogin.class);
+        startActivity(goHome);
+    }
 }
