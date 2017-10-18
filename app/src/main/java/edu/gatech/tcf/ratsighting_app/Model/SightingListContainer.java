@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 public class SightingListContainer {
 
-    public static ArrayList<RatSighting> list;
+    public static ArrayList<RatSighting> list = new ArrayList<RatSighting>();
 
 }

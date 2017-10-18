@@ -4,14 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
+import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference("server/saving-data/sightingData");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +49,17 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(toolbar);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initList(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -67,4 +93,32 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Fills the model's list with 50 sightins from the database
+     * @param dataSnapshot the snapshat of the database at that child
+     */
+    private void initList(DataSnapshot dataSnapshot) {
+        Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
+        SightingListContainer.list = new ArrayList<RatSighting>();
+        RatSighting newSighting = new RatSighting();
+        int counter = 0;
+        for (DataSnapshot sighting : ds) {
+            newSighting = new RatSighting();
+            newSighting.setAddress(sighting.getValue(RatSighting.class).getAddress());
+            newSighting.setCity(sighting.getValue(RatSighting.class).getCity());
+            newSighting.setCoordinates(sighting.getValue(RatSighting.class).getCoordinates());
+            newSighting.setmBorough(sighting.getValue(RatSighting.class).getBorough());
+            newSighting.setKey(sighting.getValue(RatSighting.class).getKey());
+            newSighting.setmDate(sighting.getValue(RatSighting.class).getDate());
+            newSighting.setZipCode(sighting.getValue(RatSighting.class).getZipCode());
+            newSighting.setmLocationType(sighting.getValue(RatSighting.class).getLocationType());
+            SightingListContainer.list.add(newSighting);
+            if (counter > 50) {
+                break;
+            }
+            counter++;
+        }
+    }
 }
+

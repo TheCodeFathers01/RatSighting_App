@@ -121,6 +121,16 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
             return;
         }
         Log.d("Edit", "Add Rat Sighting Report");
+        _sighting.setAddress(addressText);
+        _sighting.setCity(cityText);
+        _sighting.setZipCode(zipCodeText);
+        _sighting.setCoordinates(coordinatesText);
+        _sighting.setmDate(dateText);
+        LocationType locationType = (LocationType) locationTypeSpinner.getSelectedItem();
+        Borough borough = (Borough) boroughSpinner.getSelectedItem();
+        _sighting.setmLocationType(locationType);
+        _sighting.setmBorough(borough);
+        _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey());
         SightingListContainer.list.add(_sighting);
 
         finish();

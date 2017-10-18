@@ -49,49 +49,8 @@ public class SightingList extends AppCompatActivity {
                 launchInfo();
             }
         });
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                initList(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    /**
-     * Fills the model's list with 50 sightins from the database
-     * @param dataSnapshot the snapshat of the database at that child
-     */
-    private void initList(DataSnapshot dataSnapshot) {
-        Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
-        SightingListContainer.list = new ArrayList<RatSighting>();
-        RatSighting newSighting;
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, SightingListContainer.list);
         listView.setAdapter(adapter);
-        Log.d("Poop", "Got here");
-        int counter = 0;
-        for (DataSnapshot sighting : ds) {
-            newSighting = new RatSighting();
-            newSighting.setAddress(sighting.getValue(RatSighting.class).getAddress());
-            newSighting.setCity(sighting.getValue(RatSighting.class).getCity());
-            newSighting.setCoordinates(sighting.getValue(RatSighting.class).getCoordinates());
-            newSighting.setmBorough(sighting.getValue(RatSighting.class).getBorough());
-            newSighting.setKey(sighting.getValue(RatSighting.class).getKey());
-            newSighting.setmDate(sighting.getValue(RatSighting.class).getDate());
-            newSighting.setZipCode(sighting.getValue(RatSighting.class).getZipCode());
-            newSighting.setmLocationType(sighting.getValue(RatSighting.class).getLocationType());
-            SightingListContainer.list.add(newSighting);
-            Log.d("Poop", newSighting + "");
-            adapter.notifyDataSetChanged();
-            if (counter > 50) {
-                break;
-            }
-            counter++;
-        }
     }
 
     /**
