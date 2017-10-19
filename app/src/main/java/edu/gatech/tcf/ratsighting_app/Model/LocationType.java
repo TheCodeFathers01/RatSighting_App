@@ -1,9 +1,10 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum LocationType {
+public enum LocationType implements Serializable{
 
     FamilyDwelling("1-2 Family Dwelling"), FamilyApt("3+ Family Apartment Building"), FamilyMixedUse("3+ Family Mixed Use Building"), Commercial("Commercial Building"),
     Vacant("Vacant Lot"), Construction("Construction Site"), Hospital("Hospital"), Catch("Catch Basin/Sewer"), Other("Other (Explain Below)");

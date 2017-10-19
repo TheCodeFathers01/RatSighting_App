@@ -49,7 +49,7 @@ public class SightingList extends AppCompatActivity {
                 launchInfo();
             }
         });
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, SightingListContainer.list);
+        CustomAdapter adapter = new CustomAdapter(this, R.layout.list_view_sighting, SightingListContainer.list);
         listView.setAdapter(adapter);
     }
 

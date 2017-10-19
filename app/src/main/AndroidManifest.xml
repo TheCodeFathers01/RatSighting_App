@@ -41,7 +41,8 @@
         <activity
             android:name=".Controller.AddNewRatSightingReport"
             android:label="@string/title_activity_add_new_rat_sighting_report"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Controller.CSVReaderActivity"></activity>
     </application>
 
 </manifest>

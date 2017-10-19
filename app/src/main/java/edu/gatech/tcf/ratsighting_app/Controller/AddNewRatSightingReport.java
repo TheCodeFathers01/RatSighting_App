@@ -125,12 +125,12 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
         _sighting.setCity(cityText);
         _sighting.setZipCode(zipCodeText);
         _sighting.setCoordinates(coordinatesText);
-        _sighting.setmDate(dateText);
+        _sighting.setDate(dateText);
         LocationType locationType = (LocationType) locationTypeSpinner.getSelectedItem();
         Borough borough = (Borough) boroughSpinner.getSelectedItem();
-        _sighting.setmLocationType(locationType);
-        _sighting.setmBorough(borough);
-        _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey());
+        _sighting.setLocationType(locationType);
+        _sighting.setBorough(borough);
+        _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey() + 6);
         SightingListContainer.list.add(_sighting);
 
         finish();

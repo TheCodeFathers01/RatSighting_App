@@ -1,10 +1,11 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Borough {
+public enum Borough implements Serializable{
     MANHATTAN("MANHATTAN"), STATENISLAND("STATEN ISLAND"), QUEENS("QUEENS"), BROOKLYN("BROOKLYN"), BRONX("BRONX"), OTHER("OTHER");
 
     String description;

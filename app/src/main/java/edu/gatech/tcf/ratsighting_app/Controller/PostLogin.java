@@ -63,6 +63,14 @@ public class PostLogin extends AppCompatActivity {
                 launchAddSighting();
             }
         });
+
+        Button adminButton = (Button) findViewById(R.id.adminButton);
+        adminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchAdminPage();
+            }
+        });
     }
     /**
      *
@@ -84,6 +92,12 @@ public class PostLogin extends AppCompatActivity {
     private void launchAddSighting() {
         Intent addActivity = new Intent(this, AddNewRatSightingReport.class);
         startActivity(addActivity);
+    }
+
+    private void launchAdminPage() {
+        //Todo: make only allowed for admins
+        Intent goAdmin = new Intent(this, CSVReaderActivity.class);
+        startActivity(goAdmin);
     }
 
 }

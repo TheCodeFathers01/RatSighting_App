@@ -18,7 +18,7 @@ public class RatSighting implements Serializable {
         this.key = ++key;
     }
 
-    public void setmDate(String mDate) {
+    public void setDate(String mDate) {
         this.mDate = mDate;
     }
 
@@ -26,7 +26,7 @@ public class RatSighting implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public void setmLocationType(LocationType mLocationType) {
+    public void setLocationType(LocationType mLocationType) {
         this.mLocationType = mLocationType;
     }
 
@@ -42,7 +42,7 @@ public class RatSighting implements Serializable {
         this.city = city;
     }
 
-    public void setmBorough(Borough mBorough) {
+    public void setBorough(Borough mBorough) {
         this.mBorough = mBorough;
     }
 

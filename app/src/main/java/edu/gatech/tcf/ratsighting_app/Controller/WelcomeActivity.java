@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import edu.gatech.tcf.ratsighting_app.Model.LocationType;
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.R;
@@ -101,18 +102,21 @@ public class WelcomeActivity extends AppCompatActivity {
     private void initList(DataSnapshot dataSnapshot) {
         Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
         SightingListContainer.list = new ArrayList<RatSighting>();
-        RatSighting newSighting = new RatSighting();
+        RatSighting newSighting;
+        LocationType locationType;
         int counter = 0;
         for (DataSnapshot sighting : ds) {
             newSighting = new RatSighting();
             newSighting.setAddress(sighting.getValue(RatSighting.class).getAddress());
             newSighting.setCity(sighting.getValue(RatSighting.class).getCity());
             newSighting.setCoordinates(sighting.getValue(RatSighting.class).getCoordinates());
-            newSighting.setmBorough(sighting.getValue(RatSighting.class).getBorough());
+            newSighting.setBorough(sighting.getValue(RatSighting.class).getBorough());
             newSighting.setKey(sighting.getValue(RatSighting.class).getKey());
-            newSighting.setmDate(sighting.getValue(RatSighting.class).getDate());
+            newSighting.setDate(sighting.getValue(RatSighting.class).getDate());
             newSighting.setZipCode(sighting.getValue(RatSighting.class).getZipCode());
-            newSighting.setmLocationType(sighting.getValue(RatSighting.class).getLocationType());
+            locationType = sighting.getValue(RatSighting.class).getLocationType();
+            if (locationType != null)
+            newSighting.setLocationType(sighting.getValue(RatSighting.class).getLocationType());
             SightingListContainer.list.add(newSighting);
             if (counter > 50) {
                 break;
