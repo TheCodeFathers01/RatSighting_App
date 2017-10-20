@@ -39,7 +39,6 @@ public class SightingList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Poop", "Got Hereo");
         setContentView(R.layout.activity_sighting_list);
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,6 +50,9 @@ public class SightingList extends AppCompatActivity {
         });
         CustomAdapter adapter = new CustomAdapter(this, R.layout.list_view_sighting, SightingListContainer.list);
         listView.setAdapter(adapter);
+        for (RatSighting sighting : SightingListContainer.list) {
+            Log.d("Key", "" + sighting.getKey());
+        }
     }
 
     /**

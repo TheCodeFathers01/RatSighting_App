@@ -22,12 +22,15 @@ import java.util.ArrayList;
 import edu.gatech.tcf.ratsighting_app.Model.LocationType;
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
+import edu.gatech.tcf.ratsighting_app.Model.User;
+import edu.gatech.tcf.ratsighting_app.Model.UserListContainer;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference("server/saving-data/sightingData");
+    private DatabaseReference userRef = database.getReference("server/saving-data/userData");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,18 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 initList(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initUsers(dataSnapshot);
             }
 
             @Override
@@ -112,16 +127,33 @@ public class WelcomeActivity extends AppCompatActivity {
             newSighting.setCoordinates(sighting.getValue(RatSighting.class).getCoordinates());
             newSighting.setBorough(sighting.getValue(RatSighting.class).getBorough());
             newSighting.setKey(sighting.getValue(RatSighting.class).getKey());
+            Log.d("Key", "" + sighting.getValue(RatSighting.class).getKey());
             newSighting.setDate(sighting.getValue(RatSighting.class).getDate());
             newSighting.setZipCode(sighting.getValue(RatSighting.class).getZipCode());
             locationType = sighting.getValue(RatSighting.class).getLocationType();
-            if (locationType != null)
-            newSighting.setLocationType(sighting.getValue(RatSighting.class).getLocationType());
-            SightingListContainer.list.add(newSighting);
-            if (counter > 50) {
+            if (locationType != null) {
+                newSighting.setLocationType(locationType);
+            } else {
+                newSighting.setLocationType(LocationType.Other);
+            }
+            if (counter != 0) {
+                SightingListContainer.list.add(newSighting);
+            }
+            if (counter > 150) {
                 break;
             }
             counter++;
+        }
+    }
+
+    private void initUsers(DataSnapshot dataSnapshot) {
+        Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
+        UserListContainer.list = new ArrayList<User>();
+        RatSighting newSighting;
+        LocationType locationType;
+        int counter = 0;
+        for (DataSnapshot user : ds) {
+
         }
     }
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class RatSighting implements Serializable {
 
-    private static int key;
+    private int key;
     private String mDate;
     private String coordinates;
     private LocationType mLocationType;
@@ -15,7 +15,7 @@ public class RatSighting implements Serializable {
     private Borough mBorough;
 
     public void setKey(int key) {
-        this.key = ++key;
+        this.key = key;
     }
 
     public void setDate(String mDate) {
@@ -56,7 +56,6 @@ public class RatSighting implements Serializable {
         this.zipCode = zipCode;
         this.address = address;
         this.city = city;
-
         mBorough = borough;
     }
 

@@ -18,7 +18,8 @@ import edu.gatech.tcf.ratsighting_app.R;
 
 public class PostLogin extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public class PostLogin extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView addInfo = (TextView) findViewById(R.id.userInfo);
-        firebaseAuth = FirebaseAuth.getInstance();
-        String temp = "You are signed in as " + firebaseAuth.getCurrentUser().getEmail();
+        auth = FirebaseAuth.getInstance();
+        String temp = "You are signed in as " + auth.getCurrentUser().getEmail();
         addInfo.setText(temp);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -78,7 +79,7 @@ public class PostLogin extends AppCompatActivity {
      *
      */
     private void launchWelcome() {
-        firebaseAuth.signOut();
+        auth.signOut();
         Toast.makeText(this, "Signed Out", Toast.LENGTH_SHORT).show();
         Intent goHome = new Intent(this, WelcomeActivity.class);
         startActivity(goHome);

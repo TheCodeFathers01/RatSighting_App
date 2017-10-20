@@ -145,7 +145,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     launchPostLoginActivity();
                 } else {
                     String tempS = task.getException().toString();
-                    Toast.makeText(RegistrationActivity.this, "Registration was Unsuccessful, please check your email or try a different password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "Registration was Unsuccessful because " + tempS + ", please check your email or try a different password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
