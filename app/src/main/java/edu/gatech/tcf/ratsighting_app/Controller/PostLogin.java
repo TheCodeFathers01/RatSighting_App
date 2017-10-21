@@ -12,14 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import edu.gatech.tcf.ratsighting_app.Model.User;
+import edu.gatech.tcf.ratsighting_app.Model.UserListContainer;
+import edu.gatech.tcf.ratsighting_app.Model.UserType;
 import edu.gatech.tcf.ratsighting_app.R;
 
 public class PostLogin extends AppCompatActivity {
 
     private FirebaseAuth auth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +101,20 @@ public class PostLogin extends AppCompatActivity {
     }
 
     private void launchAdminPage() {
-        //Todo: make only allowed for admins
-        Intent goAdmin = new Intent(this, CSVReaderActivity.class);
-        startActivity(goAdmin);
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userEmail = firebaseUser.getEmail();
+        boolean isAdmin = false;
+        for (User user : UserListContainer.list) {
+            if (user.getEmail().equals(userEmail) && user.getuT() == UserType.ADMIN) {
+                isAdmin = true;
+            }
+        }
+        if (isAdmin) {
+            Intent goAdmin = new Intent(this, CSVReaderActivity.class);
+            startActivity(goAdmin);
+        } else {
+            Toast.makeText(this, "Thats not for you", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

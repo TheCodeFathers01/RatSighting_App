@@ -10,6 +10,7 @@ public class User {
     protected String email;
     protected UserType uT;
 
+
     public User(String username, String password, String email, UserType uT) {
         this.username = username;
         this.password = password;
@@ -17,10 +18,7 @@ public class User {
         this.uT = uT;
     }
     public User() {
-        this.username = "hello";
-        this.password = "world";
-        this.email = "helloWorld@gmail.com";
-        this.uT = UserType.USER;
+
     }
 
     public boolean validate(String uname, String pass) {
@@ -41,4 +39,21 @@ public class User {
     public UserType getuT() {
         return uT;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setuT(UserType uT) {
+        this.uT = uT;
+    }
 }
+

@@ -129,7 +129,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         tempUT = (UserType) userType.getSelectedItem(); //Get type from spinner
-        usersRef = ref.child("users");
+        usersRef = ref;
         Map<String, User> users = new HashMap<String, User>();
         if (tempUT == UserType.USER) {
             users.put(username, new DefaultUser(username, password, emailAddress, tempUT));

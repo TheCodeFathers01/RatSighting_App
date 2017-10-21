@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.tcf.ratsighting_app.Model.Borough;
 import edu.gatech.tcf.ratsighting_app.Model.LocationType;
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
@@ -39,6 +42,11 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
     private String dateText;
 
     private RatSighting _sighting;
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference("server/saving-data/sightingData");
+    private DatabaseReference sightingRef;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +140,8 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
         _sighting.setBorough(borough);
         _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey() + 6);
         SightingListContainer.list.add(_sighting);
-
+        sightingRef = ref.child("Sighting + " +  _sighting.getKey());
+        sightingRef.setValue(_sighting);
         finish();
     }
 

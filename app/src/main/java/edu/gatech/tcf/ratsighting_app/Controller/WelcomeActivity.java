@@ -149,11 +149,15 @@ public class WelcomeActivity extends AppCompatActivity {
     private void initUsers(DataSnapshot dataSnapshot) {
         Iterable<DataSnapshot> ds = dataSnapshot.getChildren();
         UserListContainer.list = new ArrayList<User>();
-        RatSighting newSighting;
+        User newUser;
         LocationType locationType;
         int counter = 0;
         for (DataSnapshot user : ds) {
-
+            newUser = new User();
+            newUser.setEmail(user.getValue(User.class).getEmail());
+            newUser.setuT(user.getValue(User.class).getuT());
+            newUser.setUsername(user.getValue(User.class).getUsername());
+            UserListContainer.list.add(newUser);
         }
     }
 }

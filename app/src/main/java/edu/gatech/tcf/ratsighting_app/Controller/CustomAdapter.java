@@ -34,7 +34,7 @@ public class CustomAdapter extends ArrayAdapter<RatSighting> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.list_view_sighting, null);
         TextView text = (TextView) convertView.findViewById(R.id.sightingID);
-        text.setText("    Sighting " + SightingListContainer.list.get(position).getKey());
+        text.setText("   " + position + 1 + ":    Sighting " + SightingListContainer.list.get(position).getKey());
         return convertView;
     }
 
