@@ -18,4 +18,7 @@
     <string name="title_activity_post_login">PostLogin</string>
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="title_activity_add_new_rat_sighting_report">AddNewRatSightingReport</string>
+    <string name="title_activity_sightings_map">Map</string>
+    <string name="title_activity_sighting_map">Map</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

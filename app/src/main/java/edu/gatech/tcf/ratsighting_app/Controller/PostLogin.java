@@ -77,6 +77,14 @@ public class PostLogin extends AppCompatActivity {
                 launchAdminPage();
             }
         });
+
+        Button mapButton = (Button) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchMap();
+            }
+        });
     }
     /**
      *
@@ -115,6 +123,11 @@ public class PostLogin extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Thats not for you", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void launchMap() {
+        Intent map = new Intent(this, MapsActivity.class);
+        startActivity(map);
     }
 
 }
