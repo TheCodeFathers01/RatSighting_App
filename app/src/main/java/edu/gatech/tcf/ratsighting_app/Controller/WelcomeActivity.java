@@ -65,6 +65,18 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initList(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
+
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,6 +86,18 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initList(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
             }
         });
     }
@@ -136,7 +160,7 @@ public class WelcomeActivity extends AppCompatActivity {
             } else {
                 newSighting.setLocationType(LocationType.Other);
             }
-            if (counter != 0) {
+            if (newSighting.getKey() != -1) {
                 SightingListContainer.list.add(newSighting);
             }
             if (counter > 150) {

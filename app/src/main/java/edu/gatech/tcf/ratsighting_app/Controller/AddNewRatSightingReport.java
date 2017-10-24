@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 import edu.gatech.tcf.ratsighting_app.Model.Borough;
 import edu.gatech.tcf.ratsighting_app.Model.LocationType;
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
@@ -138,11 +140,17 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
         Borough borough = (Borough) boroughSpinner.getSelectedItem();
         _sighting.setLocationType(locationType);
         _sighting.setBorough(borough);
-        _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey() + 6);
+        if (SightingListContainer.list.size() != 0) {
+            _sighting.setKey(SightingListContainer.list.get(SightingListContainer.list.size() - 1).getKey() + 6);
+        } else {
+            Random random = new Random();
+            _sighting.setKey(random.nextInt(50000000));
+        }
         SightingListContainer.list.add(_sighting);
         sightingRef = ref.child("Sighting + " +  _sighting.getKey());
         sightingRef.setValue(_sighting);
-        finish();
+        Log.d("Key", "added");
+        goToPostLogin();
     }
 
     /**
@@ -152,8 +160,6 @@ public class AddNewRatSightingReport extends AppCompatActivity implements View.O
     public void onCancelPressed(View view) {
         Log.d("Edit", "Cancel Rat Sighting Report");
         goToPostLogin();
-
-        finish();
     }
 
     /**
