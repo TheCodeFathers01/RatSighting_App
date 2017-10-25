@@ -1,10 +1,12 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by spmek on 10/2/2017.
  */
 
-public class User {
+public class User implements Serializable {
     protected String username;
     protected String password;
     protected String email;

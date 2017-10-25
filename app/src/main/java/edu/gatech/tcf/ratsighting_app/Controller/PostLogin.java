@@ -17,6 +17,17 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.Model.User;
 import edu.gatech.tcf.ratsighting_app.Model.UserListContainer;
 import edu.gatech.tcf.ratsighting_app.Model.UserType;
@@ -85,6 +96,21 @@ public class PostLogin extends AppCompatActivity {
                 launchMap();
             }
         });
+
+        Button loadButton = (Button) findViewById(R.id.loadButton);
+        Button saveButton = (Button) findViewById(R.id.saveButton);
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadData();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();
+            }
+        });
     }
     /**
      *
@@ -128,6 +154,38 @@ public class PostLogin extends AppCompatActivity {
     private void launchMap() {
         Intent map = new Intent(this, MapsActivity.class);
         startActivity(map);
+    }
+
+    private void saveData() {
+        try {
+            File userFile = new File(this.getFilesDir(), "Users");
+            File sightingFile = new File(this.getFilesDir(), "Sightings");
+            ObjectOutputStream outUser = new ObjectOutputStream(new FileOutputStream(userFile));
+            ObjectOutputStream outSighting = new ObjectOutputStream(new FileOutputStream(sightingFile));
+            outUser.writeObject(UserListContainer.list);
+            outSighting.writeObject(SightingListContainer.list);
+            outUser.close();
+            outSighting.close();
+            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadData() {
+        try {
+            File userFile = new File(this.getFilesDir(), "Users");
+            File sightingFile = new File(this.getFilesDir(), "Sightings");
+            ObjectInputStream inUser = new ObjectInputStream(new FileInputStream(userFile));
+            ObjectInputStream inSighting = new ObjectInputStream(new FileInputStream(sightingFile));
+            UserListContainer.list = (List) inUser.readObject();
+            SightingListContainer.list = (ArrayList) inSighting.readObject();
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
