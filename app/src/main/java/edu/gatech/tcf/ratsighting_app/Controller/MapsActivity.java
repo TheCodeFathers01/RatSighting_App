@@ -11,6 +11,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.R;
@@ -18,6 +20,7 @@ import edu.gatech.tcf.ratsighting_app.R;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+    private boolean isFiltered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        isFiltered = getIntent().getBooleanExtra("Filtered", false);
     }
 
 
@@ -42,6 +46,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        List<RatSighting> list;
+        if (isFiltered) {
+            list = SightingListContainer.filteredList;
+        } else {
+            list = SightingListContainer.list;
+        }
 
         // Add a marker in Sydney and move the camera
         MarkerOptions marker;
@@ -51,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String latString;
         String lonString;
         String[] latLon;
-        for (RatSighting sighting : SightingListContainer.list) {
+        for (RatSighting sighting : list) {
             marker = new MarkerOptions();
             ratCoordinates = sighting.getCoordinates();
             if (ratCoordinates != null) {

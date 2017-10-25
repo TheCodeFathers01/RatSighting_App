@@ -10,4 +10,6 @@ public class SightingListContainer {
 
     public static ArrayList<RatSighting> list = new ArrayList<RatSighting>();
 
+    public static ArrayList<RatSighting> filteredList = new ArrayList<>();
+
 }

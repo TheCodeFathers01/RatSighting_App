@@ -48,14 +48,6 @@ public class PostLogin extends AppCompatActivity {
         String temp = "You are signed in as " + auth.getCurrentUser().getEmail();
         addInfo.setText(temp);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +103,14 @@ public class PostLogin extends AppCompatActivity {
                 saveData();
             }
         });
+
+        Button filtered = (Button) findViewById(R.id.filterButton);
+        filtered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchFilteredSearch();
+            }
+        });
     }
     /**
      *
@@ -153,6 +153,7 @@ public class PostLogin extends AppCompatActivity {
 
     private void launchMap() {
         Intent map = new Intent(this, MapsActivity.class);
+        map.putExtra("Filtered", false);
         startActivity(map);
     }
 
@@ -186,6 +187,11 @@ public class PostLogin extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void launchFilteredSearch() {
+        Intent intent = new Intent(this, FilteredListGeneratorActivity.class);
+        startActivity(intent);
     }
 
 }
