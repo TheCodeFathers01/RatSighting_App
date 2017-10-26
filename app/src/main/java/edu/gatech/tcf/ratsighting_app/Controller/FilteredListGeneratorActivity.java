@@ -32,6 +32,9 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Adds rat sightings to the filtered list based on which ones fall in the user inputted date range
+     */
     private void initialize() {
         EditText startDay = (EditText) findViewById(R.id.startDay);
         EditText startMonth = (EditText) findViewById(R.id.startMonth);
@@ -54,7 +57,12 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
             intEndMonth = Integer.parseInt(endMonth.getText().toString());
             intEndYear = Integer.parseInt(endYear.getText().toString());
         } catch (Exception e) {
-
+            intStartDay = 0;
+            intStartMonth = 0;
+            intStartYear = 0;
+            intEndDay = 0;
+            intEndMonth = 0;
+            intEndYear = 0;
         }
         SightingListContainer.filteredList = new ArrayList<>();
         for (RatSighting sighting : SightingListContainer.list) {
@@ -72,7 +80,13 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
                 }
                 sightingDate[2] = sightingDate[2].substring(0, 3);
                 Log.d("Day", sightingDate[2]);
-                if (false) { //Logic for choosing which elements go in ;sightingDate[2] contains the year, sightingDate[1] contains the day, and sightingDate[0] contains the month
+                int sightingYear = Integer.parseInt(sightingDate[2]);
+                int sightingDay = Integer.parseInt(sightingDate[1]);
+                int sightingMonth = Integer.parseInt(sightingDate[0]);
+                if (sightingMonth >= intStartMonth && sightingMonth <= intStartMonth
+                        && sightingDay >= intStartDay && sightingDay <= intEndDay
+                        && sightingYear >= intStartYear
+                        && sightingYear <= intEndYear) { //Logic for choosing which elements go in ;sightingDate[2] contains the year, sightingDate[1] contains the day, and sightingDate[0] contains the month
                     SightingListContainer.filteredList.add(sighting);
                 }
         }
