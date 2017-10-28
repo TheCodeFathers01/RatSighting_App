@@ -65,7 +65,8 @@
         <activity
             android:name=".Controller.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Controller.FilteredListGeneratorActivity"></activity>
+        <activity android:name=".Controller.FilteredListGeneratorActivity" />
+        <activity android:name=".Controller.GraphActivity"></activity>
     </application>
 
 </manifest>
