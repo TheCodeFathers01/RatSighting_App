@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
@@ -83,10 +85,13 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
                 int sightingYear = Integer.parseInt(sightingDate[2]);
                 int sightingDay = Integer.parseInt(sightingDate[1]);
                 int sightingMonth = Integer.parseInt(sightingDate[0]);
+
+                SimpleDateFormat date= new SimpleDateFormat(sightingYear + "-" + sightingMonth + "-" + sightingDay);//, sightingMonth, sightingDay);
                 if (sightingMonth >= intStartMonth && sightingMonth <= intStartMonth
                         && sightingDay >= intStartDay && sightingDay <= intEndDay
                         && sightingYear >= intStartYear
-                        && sightingYear <= intEndYear) { //Logic for choosing which elements go in ;sightingDate[2] contains the year, sightingDate[1] contains the day, and sightingDate[0] contains the month
+                        && sightingYear <= intEndYear) {
+                    //Logic for choosing which elements go in ;sightingDate[2] contains the year, sightingDate[1] contains the day, and sightingDate[0] contains the month
                     SightingListContainer.filteredList.add(sighting);
                 }
         }
