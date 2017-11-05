@@ -12,4 +12,12 @@ public class SightingListContainer {
 
     public static ArrayList<RatSighting> filteredList = new ArrayList<>();
 
+    public static int startMonth = 1;
+
+    public static  int startYear = 2000;
+
+    public static int endMonth = 12;
+
+    public static int endYear = 2020;
+
 }

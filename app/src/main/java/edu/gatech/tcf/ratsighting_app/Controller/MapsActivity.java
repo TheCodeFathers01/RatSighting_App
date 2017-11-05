@@ -78,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (Exception e) {
                 //decide what to do later
             }
-            marker.position(new LatLng(lattitude,longitude)).title("Sighting " + sighting.getKey()).snippet(sighting.getAddress() + " " + sighting.getCity() + " " + sighting.getZipCode());
+            marker.position(new LatLng(lattitude,longitude)).title("Sighting " + sighting.getKey()).snippet(sighting.getAddress() + " " + sighting.getCity() + " " + sighting.getZipCode() + " " + sighting.getDate());
 
             googleMap.addMarker(marker);
         }

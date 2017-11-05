@@ -3,6 +3,7 @@ package edu.gatech.tcf.ratsighting_app.Controller;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -23,14 +24,22 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
+        //broken
+        int[] months = new int[12 * (SightingListContainer.endYear - SightingListContainer.startYear) + SightingListContainer.endMonth - SightingListContainer.startMonth];
 
-        HashMap<String, DataPoint> dataPointers = new HashMap<>();
-        int i = 0;
-        for (RatSighting r : SightingListContainer.filteredList) {
-            if(!dataPointers.containsKey(r.getDate())) {
-                //dataPointers.put(r.getDate(), new DataPoint(r.getDate(), 1));
-            }
-            //dataPointers.get(r.getDate())
+        for (RatSighting sighting : SightingListContainer.filteredList) {
+            String[] sightingDate = sighting.getDate().split("/");
+            int sightingMonth = Integer.parseInt(sightingDate[0]);
+            int sightingYear = Integer.parseInt(sightingDate[2]);
+
+            int bucket = sightingMonth - SightingListContainer.startMonth + 12 * (sightingYear - SightingListContainer.startYear);
+            months[bucket] = months[bucket] + 1;
+        }
+
+        for (int i = 0; i < months.length; i++) {
+            Log.d("DataAdded", "i: " + i + " months[i]" + months[i]);
+            series.appendData(new DataPoint(i, months[i]), true, months.length);
         }
 
         //use http://www.android-graphview.org/bar-chart/ for reference for Bar Graph
@@ -39,7 +48,7 @@ public class GraphActivity extends AppCompatActivity {
         //Somehow get this data from FireBase and plot graph accordingly
         //Implement FilterGraphButton on PostLogin to pop up this graph from clicking button
         //Implement logic for filtering date range and having the appropriate graph pop up
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+
         graph.addSeries(series);
     }
 }

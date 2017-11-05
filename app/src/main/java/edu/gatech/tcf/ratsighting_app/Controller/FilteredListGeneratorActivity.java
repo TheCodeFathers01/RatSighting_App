@@ -10,7 +10,9 @@ import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
@@ -31,6 +33,7 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
                 initialize();
             }
         });
+
 
     }
 
@@ -66,37 +69,59 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
             intEndMonth = 0;
             intEndYear = 0;
         }
+
+
+        Calendar startDateSDF = new GregorianCalendar(intStartYear, intStartMonth, intStartDay);
+        Calendar endDateSDF = new GregorianCalendar(intEndYear, intEndMonth, intEndDay);
+
+        //sets startMonth, startYear, endMonth, and endYear for graphing activity
+        SightingListContainer.startMonth = intStartMonth;
+        SightingListContainer.startYear = intStartYear;
+        SightingListContainer.endMonth = intEndMonth;
+        SightingListContainer.endYear = intEndYear;
+
+
         SightingListContainer.filteredList = new ArrayList<>();
+        int counter = 0;
         for (RatSighting sighting : SightingListContainer.list) {
                 if (sighting != null && sighting.getDate() != null) {
+                    Log.d("Nothing", "Not Null");
                     sightingDate = sighting.getDate().split("/");
                 } else {
+                    Log.d("Nothing", "Was null");
                     continue;
                 }
                 if (sightingDate.length < 3) {
-                    Log.d("Nothing", "Nothing");
+                    Log.d("Nothing", "sightingDate length < 3");
                     continue;
                 }
                 if (sightingDate[2].length() < 4) {
+                    Log.d("Nothing", "Year sightingDate[2] < 4");
                     continue;
                 }
-                sightingDate[2] = sightingDate[2].substring(0, 3);
+                sightingDate[2] = sightingDate[2].substring(0, 4);
                 Log.d("Day", sightingDate[2]);
                 int sightingYear = Integer.parseInt(sightingDate[2]);
                 int sightingDay = Integer.parseInt(sightingDate[1]);
                 int sightingMonth = Integer.parseInt(sightingDate[0]);
 
-                SimpleDateFormat date= new SimpleDateFormat(sightingYear + "-" + sightingMonth + "-" + sightingDay);//, sightingMonth, sightingDay);
-                if (sightingMonth >= intStartMonth && sightingMonth <= intStartMonth
-                        && sightingDay >= intStartDay && sightingDay <= intEndDay
-                        && sightingYear >= intStartYear
-                        && sightingYear <= intEndYear) {
-                    //Logic for choosing which elements go in ;sightingDate[2] contains the year, sightingDate[1] contains the day, and sightingDate[0] contains the month
+                Log.d("Sighting", sightingYear + " " + sightingMonth + " " + sightingDay);
+                Log.d("StartDate", intStartYear + " " + intStartMonth + " " + intStartDay);
+                Log.d("EndDate", intEndYear + " " + intEndMonth + " " + intEndDay);
+
+                Calendar sightingDateSDF = new GregorianCalendar(sightingYear, sightingMonth, sightingDay);
+
+                if (sightingDateSDF.compareTo(startDateSDF) >= 0 && sightingDateSDF.compareTo(endDateSDF) <= 0) {
                     SightingListContainer.filteredList.add(sighting);
                 }
+                counter++;
         }
+        Log.d("Values", counter + "");
         Intent map = new Intent(this, MapsActivity.class);
         map.putExtra("Filtered", true);
-        startActivity(map);
+        //startActivity(map);
+
+        Intent graph = new Intent(this, GraphActivity.class);
+        startActivity(graph);
     }
 }
