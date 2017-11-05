@@ -24,16 +24,13 @@ public class GraphActivity extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
-        DataPoint[] dataPoints = new DataPoint[150];
-        HashMap<String, Integer> dataPointers = new HashMap<>();
+        HashMap<String, DataPoint> dataPointers = new HashMap<>();
         int i = 0;
         for (RatSighting r : SightingListContainer.filteredList) {
-            if(dataPointers.containsKey(r.getDate())) {
-                Integer val = dataPointers.get(r.getDate());
-                val = val + 1;
-            } else {
-                dataPointers.put(r.getDate(), 1);
+            if(!dataPointers.containsKey(r.getDate())) {
+                //dataPointers.put(r.getDate(), new DataPoint(r.getDate(), 1));
             }
+            //dataPointers.get(r.getDate())
         }
 
         //use http://www.android-graphview.org/bar-chart/ for reference for Bar Graph
@@ -42,7 +39,7 @@ public class GraphActivity extends AppCompatActivity {
         //Somehow get this data from FireBase and plot graph accordingly
         //Implement FilterGraphButton on PostLogin to pop up this graph from clicking button
         //Implement logic for filtering date range and having the appropriate graph pop up
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         graph.addSeries(series);
     }
 }
