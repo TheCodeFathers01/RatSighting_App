@@ -113,6 +113,7 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
 
                 if (sightingDateSDF.compareTo(startDateSDF) >= 0 && sightingDateSDF.compareTo(endDateSDF) <= 0) {
                     SightingListContainer.filteredList.add(sighting);
+                    SightingListContainer.reports.add(sightingDateSDF);
                 }
                 counter++;
         }

@@ -10,6 +10,7 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
@@ -28,12 +29,9 @@ public class GraphActivity extends AppCompatActivity {
         //broken
         int[] months = new int[12 * (SightingListContainer.endYear - SightingListContainer.startYear) + SightingListContainer.endMonth - SightingListContainer.startMonth];
 
-        for (RatSighting sighting : SightingListContainer.filteredList) {
-            String[] sightingDate = sighting.getDate().split("/");
-            int sightingMonth = Integer.parseInt(sightingDate[0]);
-            int sightingYear = Integer.parseInt(sightingDate[2]);
-
-            int bucket = sightingMonth - SightingListContainer.startMonth + 12 * (sightingYear - SightingListContainer.startYear);
+        for (Calendar sighting : SightingListContainer.reports) {
+            Log.d("DataAdded", "gotHere with " + sighting);
+            int bucket = sighting.get(Calendar.MONTH) - SightingListContainer.startMonth + 12 * (sighting.get(Calendar.YEAR) - SightingListContainer.startYear);
             months[bucket] = months[bucket] + 1;
         }
 

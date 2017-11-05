@@ -1,6 +1,7 @@
 package edu.gatech.tcf.ratsighting_app.Model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by taint on 10/11/2017.
@@ -19,5 +20,7 @@ public class SightingListContainer {
     public static int endMonth = 12;
 
     public static int endYear = 2020;
+
+    public static ArrayList<Calendar> reports = new ArrayList<>();
 
 }
