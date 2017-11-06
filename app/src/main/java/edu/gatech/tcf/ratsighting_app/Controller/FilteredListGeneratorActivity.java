@@ -77,8 +77,8 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
         }
 
 
-        Calendar startDateSDF = new GregorianCalendar(intStartYear, intStartMonth, intStartDay);
-        Calendar endDateSDF = new GregorianCalendar(intEndYear, intEndMonth, intEndDay);
+        Calendar startDateSDF = new GregorianCalendar(intStartYear, intStartMonth, intStartDay, 0, 0, 0);
+        Calendar endDateSDF = new GregorianCalendar(intEndYear, intEndMonth, intEndDay, 0, 0, 0);
 
         //sets startMonth, startYear, endMonth, and endYear for graphing activity
         SightingListContainer.startMonth = intStartMonth;
@@ -115,7 +115,7 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
                 Log.d("StartDate", intStartYear + " " + intStartMonth + " " + intStartDay);
                 Log.d("EndDate", intEndYear + " " + intEndMonth + " " + intEndDay);
 
-                Calendar sightingDateSDF = new GregorianCalendar(sightingYear, sightingMonth, sightingDay);
+                Calendar sightingDateSDF = new GregorianCalendar(sightingYear, sightingMonth, sightingDay, 0, 0, 0);
 
                 if (sightingDateSDF.compareTo(startDateSDF) >= 0 && sightingDateSDF.compareTo(endDateSDF) <= 0) {
                     Log.d("FilteredListItem", counter + "");
