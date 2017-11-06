@@ -163,7 +163,7 @@ public class WelcomeActivity extends AppCompatActivity {
             if (newSighting.getKey() != -1) {
                 SightingListContainer.list.add(newSighting);
             }
-            if (counter > 150) {
+            if (counter > 500) {
                 break;
             }
             counter++;

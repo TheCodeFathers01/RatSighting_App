@@ -27,11 +27,11 @@ public class GraphActivity extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
         //broken
-        int[] months = new int[12 * (SightingListContainer.endYear - SightingListContainer.startYear) + SightingListContainer.endMonth - SightingListContainer.startMonth];
+        int[] months = new int[12];//new int[12 * (SightingListContainer.endYear - SightingListContainer.startYear) + SightingListContainer.endMonth - SightingListContainer.startMonth];
 
         for (Calendar sighting : SightingListContainer.reports) {
-            Log.d("DataAdded", "gotHere with " + sighting);
-            int bucket = sighting.get(Calendar.MONTH) - SightingListContainer.startMonth + 12 * (sighting.get(Calendar.YEAR) - SightingListContainer.startYear);
+            Log.d("DataAdded", "gotHere with " + sighting.get(Calendar.MONTH));
+            int bucket = sighting.get(Calendar.MONTH);//sighting.get(Calendar.MONTH) - SightingListContainer.startMonth + 12 * (sighting.get(Calendar.YEAR) - SightingListContainer.startYear);
             months[bucket] = months[bucket] + 1;
         }
 

@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
@@ -20,17 +18,25 @@ import edu.gatech.tcf.ratsighting_app.R;
 
 public class FilteredListGeneratorActivity extends AppCompatActivity {
 
-    private Button submitFilter;
+    private Button openFilteredMap;
+    private Button openGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtered_list_generator);
-        submitFilter = (Button) findViewById(R.id.submitFilter);
-        submitFilter.setOnClickListener(new View.OnClickListener() {
+        openFilteredMap = (Button) findViewById(R.id.submitFilter);
+        openFilteredMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initialize();
+                launchFilteredMap();
+            }
+        });
+        openGraph = (Button) findViewById(R.id.graphLauncher);
+        openGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchGraph();
             }
         });
 
@@ -112,17 +118,27 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
                 Calendar sightingDateSDF = new GregorianCalendar(sightingYear, sightingMonth, sightingDay);
 
                 if (sightingDateSDF.compareTo(startDateSDF) >= 0 && sightingDateSDF.compareTo(endDateSDF) <= 0) {
+                    Log.d("FilteredListItem", counter + "");
                     SightingListContainer.filteredList.add(sighting);
                     SightingListContainer.reports.add(sightingDateSDF);
                 }
                 counter++;
         }
         Log.d("Values", counter + "");
-        Intent map = new Intent(this, MapsActivity.class);
-        map.putExtra("Filtered", true);
-        //startActivity(map);
 
+    }
+
+    private void launchGraph() {
+        initialize();
         Intent graph = new Intent(this, GraphActivity.class);
         startActivity(graph);
+
+    }
+
+    private void launchFilteredMap() {
+        initialize();
+        Intent map = new Intent(this, MapsActivity.class);
+        map.putExtra("Filtered", true);
+        startActivity(map);
     }
 }
