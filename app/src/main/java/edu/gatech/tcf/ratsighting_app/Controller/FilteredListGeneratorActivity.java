@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,6 +89,8 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
 
 
         SightingListContainer.filteredList = new ArrayList<>();
+        SightingListContainer.reports = new ArrayList<>();
+
         int counter = 0;
         for (RatSighting sighting : SightingListContainer.list) {
                 if (sighting != null && sighting.getDate() != null) {

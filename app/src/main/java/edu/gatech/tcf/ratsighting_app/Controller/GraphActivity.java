@@ -32,7 +32,7 @@ public class GraphActivity extends AppCompatActivity {
 
         //adds sightings to buckets
         for (Calendar sighting : SightingListContainer.reports) {
-            Log.d("sightingTime", sighting.getTime() + "");
+            Log.d("sightingTime", sighting.get(Calendar.MONTH) + "");
             int bucket = sighting.get(Calendar.MONTH);//sighting.get(Calendar.MONTH) - SightingListContainer.startMonth + 12 * (sighting.get(Calendar.YEAR) - SightingListContainer.startYear);
             months[bucket] = months[bucket] + 1;
         }
@@ -40,11 +40,12 @@ public class GraphActivity extends AppCompatActivity {
         //adds buckets to graph
         for (int i = 0; i < months.length; i++) {
             Log.d("DataAdded", "i: " + i + " months[i]" + months[i]);
-            series.appendData(new DataPoint(i, months[i]), true, months.length);
+            series.appendData(new DataPoint(i, months[i]), false, 2*months.length);
         }
 
         final String[] monthArray = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+        /*
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -55,6 +56,7 @@ public class GraphActivity extends AppCompatActivity {
                 return value + "";
             }
         });
+        */
 
         //use http://www.android-graphview.org/bar-chart/ for reference for Bar Graph
         //DataPoint should take format (Date, Sightings)
