@@ -3,12 +3,9 @@ package edu.gatech.tcf.ratsighting_app.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,18 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.gatech.tcf.ratsighting_app.Model.Admin;
 import edu.gatech.tcf.ratsighting_app.Model.DefaultUser;
@@ -45,13 +35,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText user;
     private EditText email;
     private EditText pass;
-    private Button reg;
-    private Button cancel;
-    private TextView login;
     private Spinner userType;
     private FirebaseAuth firebaseAuth;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref;
+    private DatabaseReference ref = database.getReference("server/saving-data/userData");
     private String emailAddress;
     private String password;
     private String username;
@@ -71,13 +58,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         email = (EditText) findViewById(R.id.reg_email);
         pass = (EditText) findViewById(R.id.reg_password);
 
-        reg = (Button) findViewById(R.id.reg_register);
+        Button reg = (Button) findViewById(R.id.reg_register);
         reg.setOnClickListener(this);
 
-        cancel = (Button) findViewById(R.id.reg_cancel);
+        Button cancel = (Button) findViewById(R.id.reg_cancel);
         cancel.setOnClickListener(this);
 
-        login = (TextView) findViewById(R.id.reg_login);
+        TextView login = (TextView) findViewById(R.id.reg_login);
         login.setOnClickListener(this);
 
 
@@ -129,14 +116,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         tempUT = (UserType) userType.getSelectedItem(); //Get type from spinner
-        usersRef = ref;
-        Map<String, User> users = new HashMap<String, User>();
+        usersRef = ref.child("User:" + username);
+        User temp = new User();
         if (tempUT == UserType.USER) {
-            users.put(username, new DefaultUser(username, password, emailAddress, tempUT));
+            temp = new DefaultUser(username, password, emailAddress, tempUT);
         } else if (tempUT == UserType.ADMIN) {
-            users.put(username, new Admin(username, password, emailAddress, tempUT));
+            temp = new Admin(username, password, emailAddress, tempUT);
         }
-        usersRef.setValue(users);
+        usersRef.setValue(temp);
         firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -186,14 +173,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
      *
      */
     public void onClick(View v) {
-        if(v == reg){
-            registerUser();
+        String temp = getResources().getResourceEntryName(v.getId());
+        if(temp.equals("reg_register") ){
+            launchPostLoginActivity();
         }
-        else if(v == login) {
+        else if(temp.equals("reg_cancel") ){
+            goToHomeScreen();
+        }
+        else if(temp.equals("reg_login") ){
             launchLoginActivity();
         }
-        else if(v == cancel){
-            goToHomeScreen();
+        else {
+            Toast.makeText(this, "Please select a valid button", Toast.LENGTH_SHORT).show();
         }
     }
 }

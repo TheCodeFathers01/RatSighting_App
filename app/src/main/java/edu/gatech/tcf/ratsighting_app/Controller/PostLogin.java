@@ -2,8 +2,6 @@ package edu.gatech.tcf.ratsighting_app.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,27 +11,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.gatech.tcf.ratsighting_app.Model.SightingListContainer;
 import edu.gatech.tcf.ratsighting_app.Model.User;
 import edu.gatech.tcf.ratsighting_app.Model.UserListContainer;
 import edu.gatech.tcf.ratsighting_app.Model.UserType;
 import edu.gatech.tcf.ratsighting_app.R;
 
-public class PostLogin extends AppCompatActivity {
+public class PostLogin extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth auth;
 
@@ -50,67 +34,22 @@ public class PostLogin extends AppCompatActivity {
 
 
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchWelcome();
-            }
-        });
+        logoutButton.setOnClickListener(this);
 
         Button listButton = (Button) findViewById(R.id.sightingListButton);
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchSightingList();
-            }
-        });
+        listButton.setOnClickListener(this);
 
         Button addButton = (Button) findViewById(R.id.NewRatSighting);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchAddSighting();
-            }
-        });
+        addButton.setOnClickListener(this);
 
         Button adminButton = (Button) findViewById(R.id.adminButton);
-        adminButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchAdminPage();
-            }
-        });
+        adminButton.setOnClickListener(this);
 
         Button mapButton = (Button) findViewById(R.id.mapButton);
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchMap();
-            }
-        });
-
-        Button loadButton = (Button) findViewById(R.id.loadButton);
-        Button saveButton = (Button) findViewById(R.id.saveButton);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadData();
-            }
-        });
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
+        mapButton.setOnClickListener(this);
 
         Button filtered = (Button) findViewById(R.id.filterButton);
-        filtered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchFilteredSearch();
-            }
-        });
+        filtered.setOnClickListener(this);
     }
     /**
      *
@@ -157,41 +96,32 @@ public class PostLogin extends AppCompatActivity {
         startActivity(map);
     }
 
-    private void saveData() {
-        try {
-            File userFile = new File(this.getFilesDir(), "Users");
-            File sightingFile = new File(this.getFilesDir(), "Sightings");
-            ObjectOutputStream outUser = new ObjectOutputStream(new FileOutputStream(userFile));
-            ObjectOutputStream outSighting = new ObjectOutputStream(new FileOutputStream(sightingFile));
-            outUser.writeObject(UserListContainer.list);
-            outSighting.writeObject(SightingListContainer.list);
-            outUser.close();
-            outSighting.close();
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void loadData() {
-        try {
-            File userFile = new File(this.getFilesDir(), "Users");
-            File sightingFile = new File(this.getFilesDir(), "Sightings");
-            ObjectInputStream inUser = new ObjectInputStream(new FileInputStream(userFile));
-            ObjectInputStream inSighting = new ObjectInputStream(new FileInputStream(sightingFile));
-            UserListContainer.list = (List) inUser.readObject();
-            SightingListContainer.list = (ArrayList) inSighting.readObject();
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void launchFilteredSearch() {
         Intent intent = new Intent(this, FilteredListGeneratorActivity.class);
         startActivity(intent);
     }
-
+    public void onClick(View v) {
+        String temp = getResources().getResourceEntryName(v.getId());
+        if(temp.equals("logoutButton") ){
+            launchWelcome();
+        }
+        else if(temp.equals("sightingListButton") ){
+            launchSightingList();
+        }
+        else if(temp.equals("NewRatSighting") ){
+            launchAddSighting();
+        }
+        else if(temp.equals("adminButton") ){
+            launchAdminPage();
+        }
+        else if(temp.equals("mapButton") ){
+            launchMap();
+        }
+        else if(temp.equals("filterButton") ){
+            launchFilteredSearch();
+        }
+        else {
+            Toast.makeText(this, "Please select a valid button", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
