@@ -50,13 +50,41 @@ public class RatSighting implements Serializable {
 
     public RatSighting(int key, String date, String coordinates, LocationType locationType, String zipCode, String address, String city, Borough borough) {
         this.key = key;
-        mDate = date;
-        this.coordinates = coordinates;
-        mLocationType = locationType;
-        this.zipCode = zipCode;
-        this.address = address;
-        this.city = city;
-        mBorough = borough;
+        if (date != null) {
+            mDate = date;
+        } else {
+            mDate = "No valid date";
+        }
+        if (coordinates != null) {
+            this.coordinates = coordinates;
+        }else {
+            this.coordinates = "No valid coordinates";
+        }
+        if (locationType != null) {
+            mLocationType = locationType;
+        } else {
+            mLocationType = LocationType.Other;
+        }
+        if (zipCode != null) {
+            this.zipCode = zipCode;
+        } else {
+            this.zipCode = "No valid zipcode";
+        }
+        if (address != null) {
+            this.address = address;
+        } else {
+            this.address = "No address found";
+        }
+        if (city != null) {
+            this.city = city;
+        } else {
+            this.city = "No city found";
+        }
+        if (borough != null) {
+            mBorough = borough;
+        } else {
+            mBorough = Borough.OTHER;
+        }
     }
 
     public int getKey() {
