@@ -13,7 +13,7 @@ import edu.gatech.tcf.ratsighting_app.Model.LocationType;
 import edu.gatech.tcf.ratsighting_app.Model.RatSighting;
 
 import static org.junit.Assert.*;
-
+//hi
 public class RatSightingConstructorTest {
     @Test
     public void constructorTest() throws Exception {
