@@ -21,6 +21,8 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
 
     private Button openFilteredMap;
     private Button openGraph;
+    public static Calendar startDateParent;
+    public static Calendar endDateParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class FilteredListGeneratorActivity extends AppCompatActivity {
 
         Calendar startDateSDF = new GregorianCalendar(intStartYear, intStartMonth, intStartDay, 0, 0, 0);
         Calendar endDateSDF = new GregorianCalendar(intEndYear, intEndMonth, intEndDay, 0, 0, 0);
+        startDateParent = startDateSDF;
+        endDateParent = endDateSDF;
 
         //sets startMonth, startYear, endMonth, and endYear for graphing activity
         SightingListContainer.startMonth = intStartMonth;
