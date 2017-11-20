@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import edu.gatech.tcf.ratsighting_app.Model.User;
 import edu.gatech.tcf.ratsighting_app.Model.UserListContainer;
 import edu.gatech.tcf.ratsighting_app.Model.UserType;
@@ -29,7 +31,13 @@ public class PostLogin extends AppCompatActivity implements View.OnClickListener
         setSupportActionBar(toolbar);
         TextView addInfo = (TextView) findViewById(R.id.userInfo);
         auth = FirebaseAuth.getInstance();
-        String temp = "You are signed in as " + auth.getCurrentUser().getEmail();
+        String temp = "You are signed in as ";
+        try {
+            temp += auth.getCurrentUser().getEmail();
+        } catch (NullPointerException e) {
+            temp = null;
+        }
+
         addInfo.setText(temp);
 
 
